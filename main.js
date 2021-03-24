@@ -21,6 +21,9 @@ function serverFetch(event) {
     .catch(error => {
       document.getElementById("modal").innerHTML = `<h2>${error}</h2>`;
       document.getElementById("modal").classList.remove("hidden");
+      setTimeout( () => 
+        document.getElementById("modal").classList.add("hidden"), 3000
+      )
     })
   }
 }
