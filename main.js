@@ -7,15 +7,23 @@ const FULL_HEART = '♥'
 let likes = document.querySelectorAll(".like-glyph")
 likes.forEach(like => like.addEventListener("click", serverFetch))
 
-function serverFetch() {
-  mimicServerCall()
-  .then(response => console.log(response))
-  .catch(error => {
-    document.getElementById("modal").innerHTML = `<h2>${error}</h2>`;
-    document.getElementById("modal").classList.remove("hidden");
-  })
+function serverFetch(event) {
+  if (event.target.classList.contains("activated-heart")) {
+    event.target.classList.remove("activated-heart");
+    event.target.innerHTML = EMPTY_HEART;
+  }
+  else {
+    mimicServerCall()
+    .then( () => {
+      event.target.classList.add("activated-heart");
+      event.target.innerHTML = FULL_HEART;
+    })
+    .catch(error => {
+      document.getElementById("modal").innerHTML = `<h2>${error}</h2>`;
+      document.getElementById("modal").classList.remove("hidden");
+    })
+  }
 }
-
 
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
